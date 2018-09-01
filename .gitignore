@@ -1,3 +1,25 @@
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
 .idea/
+
+# Flutter/Dart related
+*.dart.js
+*.info.json
+*.js
+*.js_
+*.js.deps
+*.js.map
+.dart_tool/
+.DS_Store
 .packages
 build/
+pubspec.lock
+
+# Andriod related
+android/
+
+# iOS/XCode related
+ios/
+
