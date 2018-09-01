@@ -29,7 +29,16 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text('Starter Nav'),
+        actions: <Widget>[
+          IconButton(
+            icon: new Icon(Icons.radio),
+          ),
+          IconButton(
+            icon: new Icon(Icons.edit),
+          ),
+        ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
