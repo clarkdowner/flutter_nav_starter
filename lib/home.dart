@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'placeholder_widget.dart';
+import 'drawer.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.title}) : super(key: key);
@@ -33,14 +34,15 @@ class _HomeState extends State<Home> {
         title: Text('Starter Nav'),
         actions: <Widget>[
           IconButton(
-            icon: new Icon(Icons.radio),
+            icon: new Icon(Icons.expand_more),
           ),
           IconButton(
-            icon: new Icon(Icons.edit),
+            icon: new Icon(Icons.person),
           ),
         ],
       ),
       body: _children[_currentIndex],
+      drawer: DrawerWidget(),
       bottomNavigationBar: BottomNavigationBar(
         onTap: onTabTapped,
         currentIndex: _currentIndex,
