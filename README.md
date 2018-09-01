@@ -1,2 +1,8 @@
-# flutter-nav-starter
-Flutter navigation starter
+# flutter_nav_starter
+
+A new Flutter project.
+
+## Getting Started
+
+For help getting started with Flutter, view our online
+[documentation](https://flutter.io/).
