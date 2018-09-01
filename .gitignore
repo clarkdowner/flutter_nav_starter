@@ -1,3 +1,6 @@
+# Miscellaneous
+lib/home_explained.dart
+
 # IntelliJ related
 *.iml
 *.ipr
@@ -22,4 +25,3 @@ android/
 
 # iOS/XCode related
 ios/
-
