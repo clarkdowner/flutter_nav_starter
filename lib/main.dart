@@ -140,11 +140,20 @@ class BottomNavigation extends StatelessWidget {
 
   BottomNavigationBarItem _buildBottomNavigationBarItem({TabItem tabItem}) {
     return BottomNavigationBarItem(
-      title: new Text(TabHelper.description(tabItem)),
+      title: new Text(
+        TabHelper.description(tabItem),
+        style: TextStyle(
+          color: _tabColorSelect(tabItem)
+        ),
+      ),
       icon: new Icon(
         Icons.layers,
-//        color: TabHelper.color(tabItem),
+        color: _tabColorSelect(tabItem),
       ),
     );
+  }
+
+  Color _tabColorSelect(TabItem tabItem) {
+    return currentTab == tabItem ? TabHelper.color(tabItem) : Colors.grey;
   }
 }
