@@ -4,43 +4,55 @@ import 'package:flutter/material.dart';
 void main() => runApp(new App());
 
 
-class App extends StatefulWidget {
-  @override
-  _AppState createState() => _AppState();
-}
-
-
-class _AppState extends State<App> {
+class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(primarySwatch: Colors.blue,),
-      home: new Home(title: 'Flutter Starter Project'),
+      home: new Home(),
     );
   }
 }
 
 
-class Home extends StatelessWidget {
-  Home({Key key, this.title}) : super(key: key);
+class Home extends StatefulWidget {
+//  Home({Key key, this.title}) : super(key: key);  // TODO: why keys here?
+//  final title;
 
-  final title;
+  @override
+  _HomeState createState() => new _HomeState();
+}
+
+class _HomeState extends State<Home> {
+
+  TabItem _currentTab = TabItem.values[0];
+
+  void _onTabSelect(TabItem tabItem) {
+    setState(() {
+      _currentTab = tabItem;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: Text('Flutter Project Starter'),
       ),
-      body: Body(),
-      bottomNavigationBar: BottomNavigation(),
+      body: Body(currentTab: _currentTab,),
+      bottomNavigationBar: BottomNavigation(
+        currentTab: _currentTab,
+        onTabSelect: _onTabSelect,
+      ),
     );
   }
 }
 
 
 class Body extends StatelessWidget {
+  Body({this.currentTab});
+  final TabItem currentTab;
 
   final List<int> materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50];
 
@@ -49,11 +61,15 @@ class Body extends StatelessWidget {
     return ListView.builder(
       itemCount: materialIndices.length,
       itemBuilder: (context, index) {
+
         final int colorIndex = materialIndices[index];
+        final Color tabColor = TabHelper.color(currentTab)[colorIndex];
+        final String tabTitle = TabHelper.description(currentTab);
+
         return Container(
-          color: Colors.red[colorIndex],
+          color: tabColor,
           child: ListTile(
-            title: Text('red[$colorIndex]'),
+            title: Text('$tabTitle[$colorIndex]'),
             trailing: Icon(Icons.chevron_right),
             onTap: () => null,
           ),
@@ -105,32 +121,20 @@ class TabHelper {
 
 
 
-class BottomNavigation extends StatefulWidget {
-  @override
-  _BottomNavigationState createState() => new _BottomNavigationState();
-}
-
-
-class _BottomNavigationState extends State<BottomNavigation> {
-
-  int _currentIndex = 0;
-
-  void onTabTap(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
-  }
+class BottomNavigation extends StatelessWidget {
+  BottomNavigation({this.currentTab, this.onTabSelect});
+  final TabItem currentTab;
+  final ValueChanged<TabItem> onTabSelect; // TODO: why value changed?
 
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      currentIndex: _currentIndex,
-      items: [
+      items: [  // TODO: map over TabItems to generate
         _buildBottomNavigationBarItem(tabItem: TabItem.red),
         _buildBottomNavigationBarItem(tabItem: TabItem.green),
         _buildBottomNavigationBarItem(tabItem: TabItem.blue),
       ],
-      onTap: onTabTap,
+      onTap: (index) => onTabSelect(TabHelper.item(index: index)),
     );
   }
 
