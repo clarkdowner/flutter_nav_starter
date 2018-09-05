@@ -27,22 +27,28 @@ class Home extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: ListView(
-        children: <Widget>[
-          Container(
-            color: Colors.red,
-            child: ListTile(
-              title: Text('red'),
-            ),
-          ),
-          Container(
-            color: Colors.green,
-            child: ListTile(
-              title: Text('red'),
-            ),
-          ),
-        ],
-      ),
+      body: Body(),
     );
+  }
+}
+
+
+class Body extends StatelessWidget {
+
+  final List<int> materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50]
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: materialIndices.length,
+      itemBuilder: (context, index) {
+        final int colorIndex = materialIndices[index]
+        return Container(
+          color: Colors.red[colorIndex],
+          child: ListTile(
+            title: Text('red[$colorIndex]'),
+          ),
+        );
+      });
   }
 }
