@@ -28,6 +28,20 @@ class Home extends StatelessWidget {
         title: Text(title),
       ),
       body: Body(),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0,
+        items: [
+          BottomNavigationBarItem(
+            title: new Text('Red'),
+            icon: new Icon(Icons.layers)
+          ),
+          BottomNavigationBarItem(
+              title: new Text('Red'),
+              icon: new Icon(Icons.layers)
+          ),
+        ],
+        onTap: (int index) => null,
+      ),
     );
   }
 }
@@ -42,7 +56,7 @@ class Body extends StatelessWidget {
     return ListView.builder(
       itemCount: materialIndices.length,
       itemBuilder: (context, index) {
-        final int colorIndex = materialIndices[index]
+        final int colorIndex = materialIndices[index];
         return Container(
           color: Colors.red[colorIndex],
           child: ListTile(
