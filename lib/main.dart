@@ -3,8 +3,14 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(new App());
 
-class App extends StatelessWidget {
-  // This widget is the root of the application.
+
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -48,11 +54,55 @@ class Body extends StatelessWidget {
           color: Colors.red[colorIndex],
           child: ListTile(
             title: Text('red[$colorIndex]'),
+            trailing: Icon(Icons.chevron_right),
+            onTap: () => null,
           ),
         );
       });
   }
 }
+
+
+enum TabItem { red, green, blue }
+
+class TabHelper {
+  static TabItem item({int index}) {
+    switch(index) {
+      case 0:
+        return TabItem.red;
+      case 1:
+        return TabItem.green;
+      case 2:
+        return TabItem.blue;
+    }
+    return TabItem.red;
+  }
+
+  static String description(TabItem tabItem) {
+    switch(tabItem) {
+      case TabItem.red:
+        return 'Red';
+      case TabItem.green:
+        return 'Green';
+      case TabItem.blue:
+        return 'Blue';
+    }
+    return '';
+  }
+
+  static MaterialColor color(TabItem tabItem) {
+    switch(tabItem) {
+      case TabItem.red:
+        return Colors.red;
+      case TabItem.green:
+        return Colors.green;
+      case TabItem.blue:
+        return Colors.blue;
+    }
+    return Colors.grey;
+  }
+}
+
 
 
 class BottomNavigation extends StatefulWidget {
@@ -76,16 +126,21 @@ class _BottomNavigationState extends State<BottomNavigation> {
     return BottomNavigationBar(
       currentIndex: _currentIndex,
       items: [
-        BottomNavigationBarItem(
-            title: new Text('Red'),
-            icon: new Icon(Icons.layers)
-        ),
-        BottomNavigationBarItem(
-            title: new Text('Red'),
-            icon: new Icon(Icons.layers)
-        ),
+        _buildBottomNavigationBarItem(tabItem: TabItem.red),
+        _buildBottomNavigationBarItem(tabItem: TabItem.green),
+        _buildBottomNavigationBarItem(tabItem: TabItem.blue),
       ],
       onTap: onTabTap,
+    );
+  }
+
+  BottomNavigationBarItem _buildBottomNavigationBarItem({TabItem tabItem}) {
+    return BottomNavigationBarItem(
+      title: new Text(TabHelper.description(tabItem)),
+      icon: new Icon(
+        Icons.layers,
+//        color: TabHelper.color(tabItem),
+      ),
     );
   }
 }
