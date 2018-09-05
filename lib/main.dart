@@ -28,20 +28,7 @@ class Home extends StatelessWidget {
         title: Text(title),
       ),
       body: Body(),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        items: [
-          BottomNavigationBarItem(
-            title: new Text('Red'),
-            icon: new Icon(Icons.layers)
-          ),
-          BottomNavigationBarItem(
-              title: new Text('Red'),
-              icon: new Icon(Icons.layers)
-          ),
-        ],
-        onTap: (int index) => null,
-      ),
+      bottomNavigationBar: BottomNavigation(),
     );
   }
 }
@@ -49,7 +36,7 @@ class Home extends StatelessWidget {
 
 class Body extends StatelessWidget {
 
-  final List<int> materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50]
+  final List<int> materialIndices = [900, 800, 700, 600, 500, 400, 300, 200, 100, 50];
 
   @override
   Widget build(BuildContext context) {
@@ -64,5 +51,41 @@ class Body extends StatelessWidget {
           ),
         );
       });
+  }
+}
+
+
+class BottomNavigation extends StatefulWidget {
+  @override
+  _BottomNavigationState createState() => new _BottomNavigationState();
+}
+
+
+class _BottomNavigationState extends State<BottomNavigation> {
+
+  int _currentIndex = 0;
+
+  void onTabTap(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      currentIndex: _currentIndex,
+      items: [
+        BottomNavigationBarItem(
+            title: new Text('Red'),
+            icon: new Icon(Icons.layers)
+        ),
+        BottomNavigationBarItem(
+            title: new Text('Red'),
+            icon: new Icon(Icons.layers)
+        ),
+      ],
+      onTap: onTabTap,
+    );
   }
 }
